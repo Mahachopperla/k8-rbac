@@ -1,0 +1,21 @@
+#Granting IAM users access to Kubernetes with a ConfigMap
+apiVersion: v1
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::582834785619:role/eksctl-roboshop-dev-nodegroup-robo-NodeInstanceRole-FIowCCSCBShb
+      groups:
+      - system:bootstrappers
+      - system:nodes
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: |  # “If this IAM user logs in, pretend they are part of these Kubernetes groups.”
+    - groups:
+      - roboshop-trainee
+      userarn: arn:aws:iam::582834785619:user/suresh
+      username: suresh
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2025-08-12T15:22:49Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "1369"
+  uid: 9e3accfb-b755-4367-96f3-cb78e88c8bea
