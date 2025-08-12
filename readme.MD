@@ -42,8 +42,26 @@ so, we need to edit auth configmap and ensure user suresh is added to that file
     >kubectl get configmap aws-auth -n kube-system -o yaml
 
     we need to edit this file 
-    
+
     what this file will do:
 
     Grant IAM users access to Kubernetes with a ConfigMap
+
+    once updated aws-auth file then 
+
+    > kubectl apply -f aws-auth.yaml
+
+So,role and role-binding serup is ready.
+
+Role and Rolebinding is for namespace level resources.
+if u want to control access to cluster level resources like PersistentVolumes etc
+we should use ClusterRole and ClusterBinding
+
+Process will not change only resources will change. refer role.yaml file for reference.
+
+-> whatever changes you made in role.yaml file
+-> you need to apply in admin server
+-> and test in roboshop server with user suresh access
+
+
 
